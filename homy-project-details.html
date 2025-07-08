@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homy - Smart Home Automation | Riadh Ahmed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #1abc9c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --light-gray: #f8f9fa;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text: #333333;
+            --bg: #f9f9f9;
+            --header-bg: rgba(44, 62, 80, 0.8);
+            --footer-bg: rgba(44, 62, 80, 0.9);
+        }
+
+        .dark-mode {
+            --primary: #42a5f5;
+            --primary-dark: #1976d2;
+            --secondary: #37474f;
+            --accent: #26c6da;
+            --light: #263238;
+            --dark: #eceff1;
+            --gray: #90a4ae;
+            --light-gray: #37474f;
+            --card-bg: rgba(38, 50, 56, 0.85);
+            --text: #eceff1;
+            --bg: #1e272c;
+            --header-bg: rgba(26, 35, 39, 0.8);
+            --footer-bg: rgba(26, 35, 39, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            overflow-x: hidden;
+            transition: var(--transition);
+            background-image: 
+                linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231abc9c' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .dark-mode body {
+            background-image: 
+                linear-gradient(135deg, #1e272c 0%, #0f1721 100%),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231abc9c' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 20px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent);
+            transform: rotate(30deg);
+        }
+
+        .project-detail-page {
+            padding: 150px 0 100px;
+            background: var(--bg);
+        }
+
+        .back-to-portfolio {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .back-to-portfolio i {
+            margin-right: 8px;
+            transition: var(--transition);
+        }
+
+        .back-to-portfolio:hover {
+            color: var(--accent);
+        }
+
+        .back-to-portfolio:hover i {
+            transform: translateX(-5px);
+        }
+
+        .project-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .project-detail-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .project-detail-header h2 {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .project-detail-header .project-category {
+            display: inline-block;
+            background: rgba(26, 188, 156, 0.1);
+            color: var(--accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .project-detail-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        /* Vertical Gallery Styles */
+        .vertical-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 100%;
+        }
+
+        .gallery-main-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            flex: 1;
+            max-height: 400px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .gallery-main-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-main-img:hover img {
+            transform: scale(1.03);
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .gallery-thumbnail {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+            aspect-ratio: 16/9;
+            border: 2px solid transparent;
+        }
+
+        .gallery-thumbnail:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .gallery-thumbnail.active {
+            opacity: 1;
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .gallery-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-detail-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--accent);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        .project-detail-info p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .project-tech {
+            margin-top: 30px;
+        }
+
+        .project-tech h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-badge {
+            background: rgba(26, 188, 156, 0.1);
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 5px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-lightbox:hover {
+            color: var(--accent);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+
+        .lightbox-nav button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+
+        .lightbox-nav button:hover {
+            background: var(--accent);
+        }
+
+        footer {
+            background: var(--footer-bg);
+            color: white;
+            text-align: center;
+            padding: 60px 0 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: var(--transition);
+            font-size: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .project-detail-content {
+                grid-template-columns: 250px 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                flex-direction: column;
+                background: var(--header-bg);
+                width: 100%;
+                height: calc(100vh - 80px);
+                transition: var(--transition);
+                padding-top: 30px;
+                align-items: center;
+                z-index: 999;
+                backdrop-filter: blur(10px);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .project-detail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .vertical-gallery {
+                flex-direction: row;
+                height: auto;
+            }
+            
+            .gallery-main-img {
+                max-height: 300px;
+                flex: 2;
+            }
+            
+            .gallery-thumbnails {
+                flex-direction: row;
+                max-height: 100px;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+            
+            .gallery-thumbnail {
+                min-width: 120px;
+            }
+            
+            .gallery-thumbnail:hover,
+            .gallery-thumbnail.active {
+                transform: translateY(-5px);
+                translateX: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .vertical-gallery {
+                flex-direction: column;
+            }
+            
+            .gallery-thumbnails {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="index4.html" class="logo">Riadh<span>Ahmed</span></a>
+            
+            <ul class="nav-links">
+                <li><a href="index4.html#hero">Home</a></li>
+                <li><a href="index4.html#about">About</a></li>
+                <li><a href="index4.html#skills">Skills</a></li>
+                <li><a href="index4.html#resume">Resume</a></li>
+                <li><a href="index4.html#portfolio">Projects</a></li>
+                <li><a href="index4.html#contact">Contact</a></li>
+            </ul>
+            
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Detail Page -->
+    <section class="project-detail-page">
+        <div class="container project-detail-container">
+            <a href="index4.html#portfolio" class="back-to-portfolio">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+            <div class="project-detail-header">
+                <span class="project-category">IoT Project</span>
+                <h2>Homy - Smart Home Automation</h2>
+            </div>
+            <div class="project-detail-content">
+                <!-- Vertical Gallery replacing the single image -->
+                <div class="vertical-gallery">
+                    <div class="gallery-main-img" id="mainGalleryImg">
+                        <img src="https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=800" alt="Homy Mobile App">
+                    </div>
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumbnail active" data-img="https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=800" data-alt="Homy Mobile App">
+                            <img src="https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=200" alt="Homy Mobile App">
+                        </div>
+                        <div class="gallery-thumbnail" data-img="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?q=80&w=800" data-alt="Homy Dashboard">
+                            <img src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?q=80&w=200" alt="Homy Dashboard">
+                        </div>
+                        <div class="gallery-thumbnail" data-img="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" data-alt="Homy Hardware">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=200" alt="Homy Hardware">
+                        </div>
+                        <div class="gallery-thumbnail" data-img="https://images.unsplash.com/photo-1540932239986-30128078f3c5?q=80&w=800" data-alt="Homy Installation">
+                            <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?q=80&w=200" alt="Homy Installation">
+                        </div>
+                        <div class="gallery-thumbnail" data-img="https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=800" data-alt="Homy Sensors">
+                            <img src="https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=200" alt="Homy Sensors">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-detail-info">
+                    <h3>Project Overview</h3>
+                    <p>The Homy Smart Home Automation system is an innovative IoT solution that allows users to control various home appliances remotely. The system provides real-time monitoring of energy consumption and environmental conditions.</p>
+                    
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Remote control of lights, TV, and air conditioning</li>
+                        <li>Real-time energy consumption monitoring</li>
+                        <li>Temperature and humidity monitoring with DHT11 sensor</li>
+                        <li>Gas leak detection system</li>
+                        <li>Mobile app for iOS and Android</li>
+                        <li>Energy usage reports and analytics</li>
+                    </ul>
+                    
+                    <h3>Technical Implementation</h3>
+                    <p>The system uses ESP32 microcontrollers connected to various sensors and relays. Data is transmitted via MQTT protocol to a cloud-based server. The mobile app, developed with Flutter, provides a user-friendly interface to control devices and view statistics.</p>
+                    
+                    <div class="project-tech">
+                        <h4>Technologies Used</h4>
+                        <div class="tech-badges">
+                            <span class="tech-badge">ESP32</span>
+                            <span class="tech-badge">NodeMCU</span>
+                            <span class="tech-badge">DHT11 Sensor</span>
+                            <span class="tech-badge">MQTT Protocol</span>
+                            <span class="tech-badge">Firebase</span>
+                            <span class="tech-badge">Flutter</span>
+                            <span class="tech-badge">Arduino IDE</span>
+                            <span class="tech-badge">Raspberry Pi</span>
+                        </div>
+                    </div>
+                    
+                    <h3>Results & Impact</h3>
+                    <p>The Homy system successfully reduced energy consumption by 25% in test environments by providing real-time usage data and automated scheduling. Users reported a 40% increase in convenience and home security.</p>
+                </div>
+            </div>
+
+            <!-- Lightbox Modal -->
+            <div class="lightbox" id="lightbox">
+                <span class="close-lightbox">&times;</span>
+                <div class="lightbox-content">
+                    <img id="lightbox-img" src="" alt="">
+                </div>
+                <div class="lightbox-nav">
+                    <button id="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button id="next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Riadh Ahmed. All Rights Reserved.</p>
+                <p>Designed with ❤️ for IoT Innovation</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+        
+        // Vertical Gallery Functionality
+        const mainGalleryImg = document.getElementById('mainGalleryImg');
+        const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightbox = document.getElementById('lightbox');
+        const closeLightbox = document.querySelector('.close-lightbox');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        let currentImageIndex = 0;
+        const images = [];
+        
+        // Initialize gallery
+        thumbnails.forEach((thumb, index) => {
+            const imgSrc = thumb.getAttribute('data-img');
+            const imgAlt = thumb.getAttribute('data-alt');
+            images.push({src: imgSrc, alt: imgAlt});
+            
+            thumb.addEventListener('click', function() {
+                // Update main image
+                mainGalleryImg.innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
+                
+                // Update active state
+                thumbnails.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update current index
+                currentImageIndex = index;
+            });
+        });
+        
+        // Click on main image opens lightbox
+        mainGalleryImg.addEventListener('click', () => {
+            lightboxImg.src = images[currentImageIndex].src;
+            lightboxImg.alt = images[currentImageIndex].alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Close lightbox
+        closeLightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close when clicking outside image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Navigation
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            updateLightboxImage();
+        });
+        
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            updateLightboxImage();
+        });
+        
+        function updateLightboxImage() {
+            lightboxImg.src = images[currentImageIndex].src;
+            lightboxImg.alt = images[currentImageIndex].alt;
+            
+            // Update active thumbnail
+            thumbnails.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === currentImageIndex);
+            });
+            
+            // Update main image
+            mainGalleryImg.innerHTML = `<img src="${images[currentImageIndex].src}" alt="${images[currentImageIndex].alt}">`;
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                } else if (e.key === 'ArrowLeft') {
+                    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                    updateLightboxImage();
+                } else if (e.key === 'ArrowRight') {
+                    currentImageIndex = (currentImageIndex + 1) % images.length;
+                    updateLightboxImage();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
